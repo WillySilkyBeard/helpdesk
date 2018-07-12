@@ -16,7 +16,7 @@ api.store = (User, Task, Token) => (req, res) => {
 
         task.save(error => {
           if (error) return res.status(400).json(error);
-          res.status(200).json({ success: true, message: "Добавлено!" });
+          res.status(200).json({ success: true, message: "Добавлено успешно!" });
         })
       } else {
         res.status(400).json({ success: false, message: "Добавление не удалось!" })
@@ -69,7 +69,7 @@ api.edit = (User, Task, Token) => (req, res) => {
       if (error) res.status(400).json(error);
 
       if (user) {
-        Task.findOneAndUpdate({ _id: req.body._id }, req.body, (error, task) => {
+        Task.findOneAndUpdate({ _id: req.query._id }, req.body, (error, task) => {
           if (error) res.status(400).json(error);
           res.status(200).json(task);
         })
@@ -89,7 +89,7 @@ api.remove = (User, Task, Token) => (req, res) => {
       if (user) {
         Task.remove({ _id: req.query._id }, (error, removed) => {
           if (error) res.status(400).json(error);
-          res.status(200).json({ success: true, message: 'Removed successfully' });
+          res.status(200).json({ success: true, message: 'Успешно удалено' });
         })
       } else {
         res.status(400).json({ success: false, message: "Invalid client" })

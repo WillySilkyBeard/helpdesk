@@ -7,6 +7,14 @@ class Task {
         this.title = title
         this.description = description
         this.user = user
+        this.id = id
+    }
+}
+class EditedTask {
+    constructor(title, description, id) {
+        this.title = title
+        this.description = description
+        this.id = id
     }
 }
 
@@ -38,7 +46,8 @@ export default {
                 const newTask = new Task(
                     payload.title,
                     payload.description,
-                    payload.user
+                    payload.user,
+                    null
                 )
                 
                 if (payload.title != '' && payload.description != '') {
@@ -110,7 +119,60 @@ export default {
                 commit('setError', e.message)
                 commit('setLoading', false)
             } 
+        },
+        // delete task
+        async deleteTask ({commit, getters, dispatch}, payload) {
+            commit('setLoading', true)
+            try {
+                await dispatch('getAuthenticationHeader').then(() => {
+                    axios.delete(`${serverAPI}/api/v1/task`, {
+                        headers: { 'Authorization': getters.getAuthenticationHeader },
+                            params: { user_id: getters.getUserId, _id: payload }
+                        })
+                    .then((res) => {
+                        commit('setError', res.data.message)
+                    }).catch((err) => {
+                        commit('setError', err.message)
+                    })
+                })
+                commit('setLoading', false)
+            } catch (e) {
+                console.error("post:api/task: ERROR", e)
+                res.status(500).send({ message: "some error" })
+                commit('setError', e.message)
+                commit('setLoading', false)
+            } 
+        },
+        // updateTask
+        async updateTask ({commit, getters, dispatch}, payload) {
+            commit('setLoading', true)
+            try {
+                const newEditedTask = new EditedTask(
+                    payload.title,
+                    payload.description,
+                    payload.id
+                )
+                console.log(payload.id)
+                
+                await dispatch('getAuthenticationHeader').then(() => {
+                    axios.put(`${serverAPI}/api/v1/task/single`, newEditedTask, {
+                        headers: { 'Authorization': getters.getAuthenticationHeader },
+                            params: { user_id: getters.getUserId }
+                        })
+                    .then((res) => {
+                        commit('setError', res.data.message)
+                    }).catch((err) => {
+                        commit('setError', err.message)
+                    })
+                })
+                commit('setLoading', false)
+            } catch (e) {
+                res.status(500).send({ message: "some error" })
+                commit('setError', e.message)
+                commit('setLoading', false)
+            }
         }
+        
     },
     getters: {
         tasks (state) {

@@ -10,7 +10,7 @@
     </v-flex>
     <v-layout row>
       <v-flex xs12>
-        <h1 class="text--secondary mb-3">Новая задача {{username}}</h1>
+        <h1 class="text--secondary mb-3">Новая задача</h1>
         <v-form v-model="valid" ref="form" validation class="mb-3">
 					<v-text-field
 					name="title" 
@@ -63,7 +63,7 @@ export default {
         const task = {
           title: this.title,
           description: this.description,
-          user: this.$store.getters.getUsername // потом поменять
+          user: this.username // потом поменять
         }
         
         this.$store.dispatch("createTask", task)
