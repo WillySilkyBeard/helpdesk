@@ -72,13 +72,16 @@ export default {
     },
     onSave() {
         if(this.editedDescription !== '' && this.editedTitle !== '') {
-            const id = this.task.id
+            const id = this.task._id
             this.$store.dispatch('updateTask', {
                 title: this.editedTitle,
                 description: this.editedDescription,
-                user: 'this.editedDescription',
                 id: id
             })
+            .then(() => {
+            this.$router.push("/list") 
+            })
+            .catch(() => {})
 
             this.modal = false
         }

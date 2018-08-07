@@ -7,7 +7,7 @@ class Task {
         this.title = title
         this.description = description
         this.user = user
-        this.id = id
+        //this.id = id
     }
 }
 class EditedTask {
@@ -39,6 +39,7 @@ export default {
         // }
     },
     actions: {
+        // создает
         async createTask({ commit, state, dispatch, getters }, payload) {
             commit('clearError')
             commit('setLoading', true)
@@ -46,8 +47,7 @@ export default {
                 const newTask = new Task(
                     payload.title,
                     payload.description,
-                    payload.user,
-                    null
+                    payload.user
                 )
                 
                 if (payload.title != '' && payload.description != '') {
@@ -152,7 +152,6 @@ export default {
                     payload.description,
                     payload.id
                 )
-                console.log(payload.id)
                 
                 await dispatch('getAuthenticationHeader').then(() => {
                     axios.put(`${serverAPI}/api/v1/task/single`, newEditedTask, {

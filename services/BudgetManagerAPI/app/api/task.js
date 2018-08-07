@@ -69,9 +69,9 @@ api.edit = (User, Task, Token) => (req, res) => {
       if (error) res.status(400).json(error);
 
       if (user) {
-        Task.findOneAndUpdate({ _id: req.query._id }, req.body, (error, task) => {
+        Task.findOneAndUpdate({ _id: req.body.id }, req.body, (error, task) => {
           if (error) res.status(400).json(error);
-          res.status(200).json(task);
+          res.status(200).json({task,  message: "Изменения сохранены!"});
         })
       } else {
         res.status(400).json({ success: false, message: "Invalid client" })
