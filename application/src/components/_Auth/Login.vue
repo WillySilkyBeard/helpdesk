@@ -33,7 +33,7 @@
               color="primary"
               @click="login"
               :disabled="!valid"
-            >Login</v-btn>
+            >Login111</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -42,46 +42,50 @@
 </template>
 
 <script>
-  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-import {mapActions} from 'vuex'
-  export default {
-    
-    data () {
-      return {
-        email: '',
-        password: '',
-        valid: false,
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => emailRegex.test(v) || 'E-mail must be valid'
-        ],
-        passwordRules: [
-          v => !!v || 'Password is required',
-          v => (v && v.length >= 6) || 'Password must be equal or more than 6 characters'
-        ],
-        userModel: {
-          email: '',
-          password: '',
-          repassword: null
-        }
+const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+import { mapActions } from "vuex";
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      valid: false,
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => emailRegex.test(v) || "E-mail must be valid"
+      ],
+      passwordRules: [
+        v => !!v || "Password is required",
+        v =>
+          (v && v.length >= 6) ||
+          "Password must be equal or more than 6 characters"
+      ],
+      userModel: {
+        email: "",
+        password: "",
+        repassword: null
       }
-    },
-    methods: {
-      login () {
-        if (this.$refs.form.validate()) {
-          console.log('logining...')
-          const userModel = this
-          this.$store.dispatch(AUTH_REQUEST, userModel).then(() => {
-            this.$router.push('/')
+    };
+  },
+  methods: {
+    login() {
+      if (this.$refs.form.validate()) {
+        console.log("logining...");
+        const userModel = this;
+        this.$store.dispatch(AUTH_REQUEST, userModel)
+          .then(() => {
+            console.log("auth redir");
+              this.$router.push("/list");
           })
-          // const user = {
-          //   email: this.userModel.email,
-          //   password: this.userModel.password
-          // }
-
-          // console.log(user)
-        }
+          .catch(() => {});
       }
+      // const user = {
+      //   email: this.userModel.email,
+      //   password: this.userModel.password
+      // }
+
+      // console.log(user)
     }
   }
+};
 </script>

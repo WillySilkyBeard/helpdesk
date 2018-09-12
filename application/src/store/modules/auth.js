@@ -43,7 +43,8 @@ export default {
                     commit('setUserId', user._id)
                     //commit('setValidLogin', true)
                     commit('setError', `Добро пожаловать! ${user.username}`)
-                }).catch(({response: {data}}) => {
+                })
+                .catch(({response: {data}}) => {
                     commit('setError', data.message)
                 })
             } else {

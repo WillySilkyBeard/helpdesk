@@ -33,10 +33,10 @@
     </v-navigation-drawer>
 
     <v-toolbar app>
-     <v-toolbar-side-icon
-     @click="drawer = !drawer"
-     class="hidden-md-and-up"
-     ></v-toolbar-side-icon>
+      <v-toolbar-side-icon
+      @click="drawer = !drawer"
+      class="hidden-md-and-up"
+      ></v-toolbar-side-icon>
     <v-toolbar-title>
         <router-link to="/" tag="span" class="pointer">Help Desk beta v.1</router-link>
     </v-toolbar-title>
@@ -48,15 +48,13 @@
       :to="link.url"
       flat><v-icon left color="primary darken-2">{{link.icon}}</v-icon>{{link.title}}</v-btn>
       <v-btn 
-      @click="onLogout"
-      flat
-      v-if="checkAuthentication"
+        @click="onLogout"
+        flat
+        v-if="checkAuthentication"
       >
       <v-icon left color="primary darken-2">exit_to_app</v-icon>Выйти {{checkAuthentication ? '['+getUsername+']' : ''}}</v-btn>
     </v-toolbar-items>
   </v-toolbar>
-
-
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -72,7 +70,7 @@
         dark
         flat
         @click.native="closeError"
-      >Закрыть
+      ><v-icon>close</v-icon>
       </v-btn>
     </v-snackbar>
   </template>
@@ -115,7 +113,7 @@ export default {
     },
     onLogout () {
       this.$store.dispatch('logout')
-      this.$router.push('/')
+      this.$router.push('/login')
     }
   }
 }

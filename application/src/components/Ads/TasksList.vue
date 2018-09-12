@@ -24,11 +24,11 @@
       item-key="title"
       rows-per-page-text="На странице"
       no-data-text="На сегодня ничего нет"
-      class="elevation-3"
+      class="elevation-1"
   >
     <template slot="items" slot-scope="props">
       <tr @click="props.expanded = !props.expanded">
-        <td>{{ props.item.title }}</td>
+        <td @click="openItem(props.item._id)">{{ props.item.title }}</td>
         <td class="text-xs-left">{{ props.item.date }}</td>
         <td class="text-xs-left">{{ props.item.user_id }}</td>
         <td class="text-xs-left">
@@ -89,9 +89,9 @@
     <template slot="expand" slot-scope="props">
       <v-card flat>
         <v-card-text>
-          <div>{{props.item.description}}</div>
-          <v-btn flat @click="openItem(props.item._id)">
-            <v-icon small class="mr-2">remove_red_eye</v-icon>Просмотреть
+          <div><strong>Краткое описание:</strong><br>{{props.item.description}}</div>
+          <!-- <v-btn flat @click="openItem(props.item._id)">
+            <v-icon small class="mr-2">remove_red_eye</v-icon>1Просмотреть
           </v-btn>
         <v-btn flat @click="openItem(props.item._id)">
           <v-icon small class="mr-2">check_box</v-icon>Завершить
@@ -101,10 +101,11 @@
         </v-btn>
         <v-btn flat @click="deleteItem(props.item._id)">
           <v-icon small class="mr-2">delete</v-icon>Удалить
-        </v-btn>
+        </v-btn> -->
         </v-card-text>
       </v-card>
     </template>
+    <!-- пагинация -->
     <template slot="pageText" slot-scope="props">
       {{ props.pageStart }} - {{ props.pageStop }} из {{ props.itemsLength }}
     </template>
@@ -174,8 +175,8 @@ export default {
   },
   computed: {
     tasks() {
-      //return this.$store.getters.tasks;
-      return this.$store.getters.myTasks
+      return this.$store.getters.tasks;
+      // return this.$store.getters.myTasks
     },
     loading() {
       // не работает прелоадер

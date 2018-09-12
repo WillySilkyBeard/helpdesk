@@ -12,6 +12,7 @@ export default {
                     axios.post('/api/auth', {
                         email, password
                     }).then((res) => {
+                        console.log('res.data')
                         console.log(res.data)
                         
                     }).catch((err) => {

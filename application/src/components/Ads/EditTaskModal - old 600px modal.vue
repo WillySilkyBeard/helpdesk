@@ -1,50 +1,13 @@
 <template>
 <div>
-
-<v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <v-btn flat slot="activator"><v-icon>edit</v-icon></v-btn>
-                    <v-card>
-                      <v-toolbar dark color="primary">
-                        <v-btn icon dark @click.native="dialog = false">
-                          <v-icon>close</v-icon>
-                        </v-btn>
-                        <v-toolbar-title>Редактирование</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-toolbar-items>
-                          <v-btn dark flat @click.native="onSave">Сохранить</v-btn>
-                        </v-toolbar-items>
-                      </v-toolbar>
-                      <v-layout row>
-                        <v-flex xs12>
-                          <v-card-text>
-                            <v-text-field
-                            name="title" 
-                            label="Title" 
-                            type="text"
-                            v-model="editedTitle"
-                            ></v-text-field>
-                            <v-text-field
-                            name="description" 
-                            label="description" 
-                            type="text"
-                            multi-line
-                            v-model="editedDescription"
-                            ></v-text-field>
-                          </v-card-text>
-                        </v-flex>
-                      </v-layout>
-                    </v-card>
-                  </v-dialog>
-
-    <!-- маленькое модальное окно для редактирования
-         <v-dialog width="600px" v-model="modal">
+    <v-dialog width="600px" v-model="modal">
     <v-btn flat slot="activator"><v-icon>edit</v-icon></v-btn>
     <v-card>
         <v-container>
             <v-layout row>
                 <v-flex xs12>
                     <v-card-title>
-                        <h1 class="textprimary">Редактирование</h1>
+                        <h1 class="text--primary">Редактирование</h1>
                     </v-card-title>
                 </v-flex>
             </v-layout>
@@ -85,7 +48,7 @@
             </v-layout>
         </v-container>
     </v-card>
-    </v-dialog> -->
+    </v-dialog>
 </div>
 </template>
 
@@ -95,7 +58,7 @@ export default {
   props: ['task'],
   data() {
     return {
-      dialog: false,
+      modal: false,
       editedDescription: this.task.description,
       editedTitle: this.task.title
     };
@@ -104,7 +67,7 @@ export default {
     onCancel() {
         this.editedDescription = this.task.description
         this.editedTitle = this.task.title
-        this.dialog = false
+        this.modal = false
     },
     onSave() {
         if(this.editedDescription !== '' && this.editedTitle !== '') {
@@ -119,7 +82,7 @@ export default {
             })
             .catch(() => {})
 
-            this.dialog = false
+            this.modal = false
         }
     }
   }

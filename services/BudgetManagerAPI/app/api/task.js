@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const api = {};
-
+// сохранение данных в базу
 api.store = (User, Task, Token) => (req, res) => {
   if (Token) {
     User.findOne({ _id: req.query.user_id }, (error, user) => {
@@ -25,17 +25,22 @@ api.store = (User, Task, Token) => (req, res) => {
 
   } else return res.status(403).send({ success: false, message: 'Unauthorized' });
 }
-
+//запрос в базу за задачами
 api.getAll = (User, Task, Token) => (req, res) => {
   if (Token) {
-    if(req.query.user_id) {
-      Task.find({ user_id: req.query.user_id }, (error, task) => {
+    // console.log(req.user.id)
+    // было req.query.user_id
+    // console.log(req.query.user_id)
+    console.log(req.query)
+    
+    if(req.user.id) { // если пользователь найден ищем его задачи
+      Task.find({ user_id: req.user.id }, (error, task) => {
         if (error) return res.status(400).json(error);
         res.status(200).json(task);
         return true;
       })
     } else {
-      Task.find({ }, (error, task) => {
+      Task.find({}, (error, task) => {
         if (error) return res.status(400).json(error);
         res.status(200).json(task);
         return true;

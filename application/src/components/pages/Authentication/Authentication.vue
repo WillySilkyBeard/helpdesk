@@ -108,7 +108,9 @@ export default {
       this.$store
         .dispatch("authenticate", this.credentials)
         .then(() => {
-          this.$router.push("/list")
+          setTimeout(() => {
+            this.$router.push("/list")
+            }, 1000)
         })
         .catch(() => {});
     },
@@ -121,7 +123,7 @@ export default {
   },
   created () {
     if (this.$route.query['loginError']) {
-      this.$store.dispatch('setError', 'ЗарегистрируйтесьЁ')
+      this.$store.dispatch('setError', 'Выполните вход в систему')
     }
   }
 };

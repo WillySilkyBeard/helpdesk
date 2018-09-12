@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema({
   title: {
     type: String,
@@ -9,9 +8,13 @@ const Schema = mongoose.Schema({
     type: String,
     required: true
   },
+  // user: {
+  //   ref: 'users',
+  //   type: Schema.Types.ObjectId
+  // },
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'UsersCollection'
   },
   date: {
     type: Date,
