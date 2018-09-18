@@ -39,23 +39,23 @@ api.getAll = (User, Task, Token) => (req, res) => {
   } else return res.status(403).send({ success: false, message: 'Unauthorized' });
 }
 
-api.index = (User, Task, Token) => (req, res) => {
-  if (Token) {
-    User.findOne({ _id: req.query.user_id }, (error, user) => {
-      if (error) res.status(400).json(error);
+// api.index = (User, Task, Token) => (req, res) => {
+//   if (Token) {
+//     User.findOne({ _id: req.query.user_id }, (error, user) => {
+//       if (error) res.status(400).json(error);
 
-      if (user) {
-        Task.findOne({ _id: req.query._id }, (error, task) => {
-          if (error) res.status(400).json(error);
-          res.status(200).json(task);
-        })
-      } else {
-        res.status(400).json({ success: false, message: "Invalid client" })
-      }
-    })
+//       if (user) {
+//         Task.findOne({ _id: req.query._id }, (error, task) => {
+//           if (error) res.status(400).json(error);
+//           res.status(200).json(task);
+//         })
+//       } else {
+//         res.status(400).json({ success: false, message: "Invalid client" })
+//       }
+//     })
 
-  } else return res.status(401).send({ success: false, message: 'Unauthorized' });
-}
+//   } else return res.status(401).send({ success: false, message: 'Unauthorized' });
+// }
 
 api.edit = (User, Task, Token) => (req, res) => {
   if (Token) {
@@ -63,8 +63,6 @@ api.edit = (User, Task, Token) => (req, res) => {
       if (error) res.status(400).json(error);
 
       if (user) {
-        console.log(req.body)
-        
         Task.findOneAndUpdate({ _id: req.body.id }, req.body, (error, task) => {
           if (error) res.status(400).json(error);
           res.status(200).json({task,  message: "Изменения сохранены!"});

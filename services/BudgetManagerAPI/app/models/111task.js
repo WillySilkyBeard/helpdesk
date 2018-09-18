@@ -8,14 +8,6 @@ const Schema = mongoose.Schema({
     type: String,
     required: true
   },
-  department: {
-    type: String,
-    required: true
-  },
-  category: {
-    type: String,
-    required: true
-  },
   // user: {
   //   ref: 'users',
   //   type: Schema.Types.ObjectId
@@ -27,13 +19,10 @@ const Schema = mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
-  },
-  deadline: {
-    type: Date
-  }
+}
 }, {
-    versionKey: false,
-    collection: "TasksCollection"
-  });
+  versionKey: false,
+  collection: "TasksCollection"
+});
 
 mongoose.model('Task', Schema);

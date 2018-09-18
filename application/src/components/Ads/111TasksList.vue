@@ -29,8 +29,7 @@
     <template slot="items" slot-scope="props">
       <tr @click="props.expanded = !props.expanded">
         <td @click="openItem(props.item._id)">{{ props.item.title }}</td>
-        <td class="text-xs-left">{{ itemDate(props.item.date) }}</td>
-        <td class="text-xs-left">{{ itemDate(props.item.deadline) }}</td>
+        <td class="text-xs-left">{{ props.item.date }}</td>
         <td class="text-xs-left">{{ props.item.user_id }}</td>
         <td class="text-xs-left">
           <v-menu bottom offset-y>
@@ -122,66 +121,56 @@ export default {
       dialog: false,
       editedIndex: -1,
       editedItem: {
-        _id: "",
-        date: "",
-        title: "",
-        description: "",
-        user_id: ""
+        _id: '',
+        date: '',
+        title: '',
+        description: '',
+        user_id: ''
       },
       headers: [
         { text: "Название", sortable: false, value: "name" },
-        { text: "Дата постановки", value: "date" },
-        { text: "Крайний срок", value: "deadline" },
+        { text: "Создан", value: "date" },
         { text: "Постановщик", value: "user" },
         { text: "", sortable: false, value: "menu" }
       ]
     };
   },
   methods: {
-    openItem(payload) {
-      this.$router.push({ name: "task", params: { id: payload } });
+    openItem (payload) {
+      this.$router.push({ name: 'task', params: { id: payload }})
     },
-    editItem(payload) {
-      this.editedIndex = this.tasks.indexOf(payload);
-      this.editedItem = Object.assign({}, payload);
-      this.dialog = true;
+    editItem (payload) {
+      this.editedIndex = this.tasks.indexOf(payload)
+      this.editedItem = Object.assign({}, payload)
+      this.dialog = true
     },
-    deleteItem(payload) {
+    deleteItem (payload) {
       this.$store.dispatch("deleteTask", payload);
       this.$store.dispatch("getAll");
     },
     onCancel() {
-      this.editedDescription = this.task.description;
-      this.editedTitle = this.task.title;
-      this.dialog = false;
+        this.editedDescription = this.task.description
+        this.editedTitle = this.task.title
+        this.dialog = false
     },
     onSave(payload) {
-      if (this.editedDescription !== "" && this.editedTitle !== "") {
-        const id = payload._id;
-        this.$store
-          .dispatch("updateTask", {
-            title: payload.title,
-            description: payload.description,
-            id: id
+      if(this.editedDescription !== '' && this.editedTitle !== '') {
+          const id = payload._id
+          this.$store.dispatch('updateTask', {
+              title: payload.title,
+              description: payload.description,
+              id: id
           })
           .then(() => {
-            this.$router.push("/list");
+          this.$router.push("/list") 
           })
-          .catch(() => {});
-        this.$store.dispatch("getAll");
-        this.dialog = false;
+          .catch(() => {})
+          this.$store.dispatch("getAll");
+          this.dialog = false
       }
     },
     doNewTask() {
-      this.$router.push("/new");
-    },
-    itemDate(payload) {
-      if (payload) {
-        let [year, month, daytime] = payload.split("-");
-        let day = daytime.substr(0, 2);
-        let time = daytime.substr(3, 8);
-        return `${day}.${month}.${year} ${time}`;
-      }
+       this.$router.push("/new")
     }
   },
   computed: {

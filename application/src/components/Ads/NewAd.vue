@@ -10,18 +10,23 @@
     </v-flex>
     <v-layout row>
       <v-flex xs12>
-        <h1 class="text--secondary mb-3">Новая задача</h1>
+        <h1 class="text--secondary mb-3">Новая задача {{date}}</h1>
         <v-form v-model="valid" ref="form" validation class="mb-3">
-          <v-flex xs12 d-flex>
+          <v-flex xs12 >
+            <v-layout justify-space-between row fill-height>
             <v-select
-              :items="items"
+              :items="departmentList"
               label="Выберите отдел"
               outline
+              v-model="department"
+              v-on:input="disableCategorySelect = false"
             ></v-select>
             <v-select
-              :items="items"
+              :items="categoryList"
               label="Выберите категорию"
+              :disabled="disableCategorySelect"
               outline
+              v-model="category"
             ></v-select>
             <v-menu
               ref="menu2"
@@ -49,6 +54,7 @@
               first-day-of-week ="1"
             ></v-date-picker>
           </v-menu>
+            </v-layout>
         </v-flex>
         <v-text-field
         name="title" 
@@ -94,13 +100,17 @@
 export default {
   data() {
     return {
-      items: ['Новый пользователь', 'Установка/Настройка ПО', 'Замена картриджа', 'Другое'],
+      departmentList: ['ИТ', 'Бухгалтерия', 'Администрация', 'Кадры'],
+      categoryList: ['Новый пользователь', 'Установка/Настройка ПО', 'Замена картриджа', 'Другое'],
+      department: "dep",
+      category: "cat",
       title: "someTask",
       description: "someDescr",
       valid: false,
       date: null,
       dateFormatted: null,
-      modal: false
+      modal: false,
+      disableCategorySelect: true
     };
   },
   methods: {
@@ -109,6 +119,9 @@ export default {
         const task = {
           title: this.title,
           description: this.description,
+          department: this.department,
+          category: this.category,
+          deadline: this.date,
           user: this.username // потом поменять
         };
 

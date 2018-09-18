@@ -16,7 +16,7 @@
                       prepend-icon="account_box"
                       :rules="rules"
                       required
-                      color="light-blue lighten-1">
+                      color="blue">
         </v-text-field>
 
         <v-text-field label="Password"
@@ -26,12 +26,12 @@
                       :append-icon="loginPasswordVisible ? 'visibility' : 'visibility_off'"
                       :append-icon-cb="() => (loginPasswordVisible = !loginPasswordVisible)"
                       :type="loginPasswordVisible ? 'text' : 'password'"
-                      color="light-blue lighten-1"
+                      color="blue"
                       required>
         </v-text-field>
 <v-card-actions>
-        <v-btn flat color="light-blue lighten-1" @click="toggleVisible">Создать аккаунт</v-btn>
-        <v-btn color="light-blue lighten-1" @click.native="submitAuthentication()">Вход</v-btn>
+        <v-btn flat color="blue" @click="toggleVisible">Создать аккаунт</v-btn>
+        <v-btn color="blue" @click.native="submitAuthentication()">Вход</v-btn>
 </v-card-actions>
       </v-form>
       </v-card-text>
@@ -50,7 +50,7 @@
                       prepend-icon="account_box"
                       :rules="rules"
                       required
-                      color="light-blue lighten-1">
+                      color="blue">
         </v-text-field>
 
         <v-text-field label="Password"
@@ -60,11 +60,11 @@
                       :append-icon="signUpPasswordVisible ? 'visibility' : 'visibility_off'"
                       :append-icon-cb="() => (signUpPasswordVisible = !signUpPasswordVisible)"
                       :type="signUpPasswordVisible ? 'text' : 'password'"
-                      color="light-blue lighten-1"
+                      color="blue"
                       required>
         </v-text-field>
-        <v-btn flat color="light-blue lighten-1" @click="toggleVisible">У меня есть аккаунт</v-btn>
-        <v-btn color="light-blue lighten-1" @click.native="submitSignUp()">Регистрация</v-btn>
+        <v-btn flat color="blue" @click="toggleVisible">У меня есть аккаунт</v-btn>
+        <v-btn color="blue" @click.native="submitSignUp()">Регистрация</v-btn>
       </v-form>
       </v-card-text>
   </v-card>

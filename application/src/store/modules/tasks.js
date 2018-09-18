@@ -3,17 +3,23 @@ import axios from 'axios'
 const serverAPI = `http://${window.location.hostname}:3001`
 
 class Task {
-    constructor(title, description, user) {
+    constructor(title, description, department, category, deadline, user) {
         this.title = title
         this.description = description
+        this.department = department
+        this.category = category
+        this.deadline = deadline
         this.user = user
         //this.id = id
     }
 }
 class EditedTask {
-    constructor(title, description, id) {
+    constructor(title, description, department, category, deadline, id) {
         this.title = title
         this.description = description
+        this.department = department
+        this.category = category
+        this.deadline = deadline
         this.id = id
     }
 }
@@ -47,6 +53,9 @@ export default {
                 const newTask = new Task(
                     payload.title,
                     payload.description,
+                    payload.department,
+                    payload.category,
+                    payload.deadline,
                     payload.user
                 )
                 
@@ -146,13 +155,16 @@ export default {
         // updateTask
         async updateTask ({commit, getters, dispatch}, payload) {
             commit('setLoading', true)
+
             try {
                 const newEditedTask = new EditedTask(
                     payload.title,
                     payload.description,
+                    payload.department,
+                    payload.category,
+                    payload.deadline,
                     payload.id
                 )
-                
                 await dispatch('getAuthenticationHeader').then(() => {
                     axios.put(`${serverAPI}/api/v1/task/single`, newEditedTask, {
                         headers: { 'Authorization': getters.getAuthenticationHeader },
@@ -174,6 +186,7 @@ export default {
         
     },
     getters: {
+        // все задачи
         tasks (state) {
             return state.tasks
         },
